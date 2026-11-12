@@ -8,13 +8,72 @@ st.set_page_config(page_title="SupeRR Selector - The Pressure Index", layout="wi
 
 st.markdown('''
 <style>
-    .stApp { background-color: #0d1117; color: #c9d1d9; }
-    .premium-title { font-family: 'Helvetica Neue', sans-serif; font-size: 3rem; font-weight: 300; letter-spacing: -1px; color: #f0f6fc; border-left: 6px solid #2f81f7; padding-left: 15px; margin-bottom: 5px; text-transform: uppercase; }
-    .premium-subtitle { font-family: 'Helvetica Neue', sans-serif; font-size: 1.2rem; color: #8b949e; margin-bottom: 40px; padding-left: 21px; text-transform: uppercase; letter-spacing: 2px;}
-    .metric-card { background: #161b22; border: 1px solid #30363d; padding: 24px; border-radius: 8px; text-align: left; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
-    .metric-card h3 { color: #8b949e; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 600; }
-    .metric-card h1 { color: #f0f6fc; font-size: 2.2rem; font-weight: 700; margin: 0; line-height: 1.2; }
-    .metric-card p { color: #2ea043; font-size: 1rem; margin-top: 8px; font-weight: 500; }
+    /* Clean, premium dark mode */
+    .stApp {
+        background-color: #0d1117;
+        color: #c9d1d9;
+    }
+    .premium-title {
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 3.2rem;
+        font-weight: 300;
+        letter-spacing: -1px;
+        color: #f0f6fc;
+        border-left: 6px solid #2f81f7;
+        padding-left: 15px;
+        margin-bottom: 5px;
+    }
+    .premium-subtitle {
+        font-family: 'Helvetica Neue', sans-serif;
+        font-size: 1.2rem;
+        color: #8b949e;
+        margin-bottom: 40px;
+        padding-left: 21px;
+    }
+    .metric-card {
+        background: #161b22;
+        border: 1px solid #30363d;
+        padding: 24px;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        border-color: #2f81f7;
+    }
+    .metric-card h3 {
+        color: #8b949e;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+    .metric-card h1 {
+        color: #f0f6fc;
+        font-size: 2.4rem;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1.2;
+    }
+    .metric-card p {
+        color: #2ea043;
+        font-size: 1rem;
+        margin-top: 8px;
+        font-weight: 500;
+    }
+    .section-header {
+        font-family: 'Helvetica Neue', sans-serif;
+        color: #c9d1d9;
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #30363d;
+    }
 </style>
 ''', unsafe_allow_html=True)
 
