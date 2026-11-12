@@ -70,7 +70,7 @@ with tab3:
     st.plotly_chart(fig_bowl, use_container_width=True)
     
     display_cols = ['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'wickets_pres', 'balls_bowled_pres', 'sr_pres', 'econ_std', 'matches_played']
-    st.dataframe(bowl_stats[display_cols].head(50).round(2), use_container_width
+    st.dataframe(bowl_stats[display_cols].head(50).round(2), use_container_width=True)
 
 with tab4:
     st.markdown('### Individual Player Intelligence')
