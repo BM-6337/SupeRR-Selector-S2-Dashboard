@@ -143,21 +143,16 @@ with tab1:
 with tab2:
     st.markdown('<div class="section-header">Batting Clutch Rankings</div>', unsafe_allow_html=True)
     
-    fig = px.scatter(bat_stats.head(20), x='sr_base', y='sr_pres', size='Pressure_Rating', 
-                     color='Pressure_Rating', hover_name='striker_name',
-                     text='striker_name', color_continuous_scale='Blues',
-                     title="Baseline SR vs. Extreme Pressure SR")
-    
-    fig.update_traces(textposition='top center', marker=dict(line=dict(width=1, color='#161b22')))
-    fig.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
-    # Add a diagonal line for baseline (x=y)
-    max_val = max(bat_stats['sr_base'].max(), bat_stats['sr_pres'].max())
-    fig.add_shape(type="line", x0=100, y0=100, x1=max_val, y1=max_val, line=dict(color="#8b949e", width=1, dash="dash"))
+    # Changed to Horizontal Bar Chart to match Bowling
+    fig = px.bar(bat_stats.head(10), x='Pressure_Rating', y='striker_name', orientation='h',
+                 color='Pressure_Rating', color_continuous_scale='Blues',
+                 title="Top 10 High-Pressure Clutch Batters")
+    fig.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', yaxis={'categoryorder':'total ascending'})
     
     st.plotly_chart(fig, use_container_width=True)
     
-    # Removed the .style.background_gradient() that was causing the error
-    st.dataframe(bat_stats[['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'sr_std']].head(15).round(2), use_container_width=True)
+    # Extended dataframe to 50
+    st.dataframe(bat_stats[['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'sr_std']].head(50).round(2), use_container_width=True)
 
 # --- TAB 3: BOWLING ---
 with tab3:
@@ -170,8 +165,8 @@ with tab3:
     
     st.plotly_chart(fig, use_container_width=True)
     
-    # Removed the .style.background_gradient() that was causing the error
-    st.dataframe(bowl_stats[['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'econ_std']].head(15).round(2), use_container_width=True)
+    # Extended dataframe to 50
+    st.dataframe(bowl_stats[['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'econ_std']].head(50).round(2), use_container_width=True)
 
 # --- TAB 4: PLAYER PROFILES ---
 with tab4:
