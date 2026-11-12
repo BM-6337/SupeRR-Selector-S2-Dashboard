@@ -48,13 +48,29 @@ with tab1:
 
 with tab2:
     st.markdown('### Top 10 Batters (Differential & Clutch Output)')
+    
+    # Horizontal Bar Chart for Batters
+    fig_bat = px.bar(bat_stats.head(10), x='Pressure_Rating', y='striker_name', orientation='h',
+                     color='Pressure_Rating', color_continuous_scale='Blues',
+                     title="Top 10 High-Pressure Clutch Batters")
+    fig_bat.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', yaxis={'categoryorder':'total ascending'})
+    st.plotly_chart(fig_bat, use_container_width=True)
+    
     display_cols = ['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'avg_base', 'avg_pres', 'balls_pres', 'outs_pres', 'sr_std']
-    st.dataframe(bat_stats[display_cols].head(10).round(2), use_container_width=True)
+    st.dataframe(bat_stats[display_cols].head(50).round(2), use_container_width=True)
 
 with tab3:
     st.markdown('### Top 10 Bowlers (Lockdown Efficiency)')
+    
+    # Horizontal Bar Chart for Bowlers
+    fig_bowl = px.bar(bowl_stats.head(10), x='Pressure_Rating', y='bowler_name', orientation='h',
+                      color='Pressure_Rating', color_continuous_scale='Oranges',
+                      title="Top 10 High-Pressure Lockdown Bowlers")
+    fig_bowl.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', yaxis={'categoryorder':'total ascending'})
+    st.plotly_chart(fig_bowl, use_container_width=True)
+    
     display_cols = ['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'wickets_pres', 'balls_bowled_pres', 'sr_pres', 'econ_std', 'matches_played']
-    st.dataframe(bowl_stats[display_cols].head(10).round(2), use_container_width=True)
+    st.dataframe(bowl_stats[display_cols].head(50).round(2), use_container_width
 
 with tab4:
     st.markdown('### Individual Player Intelligence')
