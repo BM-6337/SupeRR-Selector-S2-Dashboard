@@ -94,7 +94,7 @@ def load_data():
 bat_stats, bowl_stats = load_data()
 
 # --- HEADER ---
-st.markdown('<div class="premium-title">Asymmetric Value Engine</div>', unsafe_allow_html=True)
+st.markdown('<div class="premium-title">SupeRR Draft Optimizer</div>', unsafe_allow_html=True)
 st.markdown('<div class="premium-subtitle">SupeRR Selector Season 2 | Differential Match-Winner Identification</div>', unsafe_allow_html=True)
 
 # --- TABS ---
