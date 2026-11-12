@@ -20,8 +20,8 @@ st.markdown('''
 
 @st.cache_data
 def load_data():
-    bat_stats = pd.read_csv('DATA/processed datasets/bat_stats_final.csv')
-    bowl_stats = pd.read_csv('DATA/processed datasets/bowl_stats_final.csv')
+    bat_stats = pd.read_csv('DATA/processed data/bat_stats_final.csv')
+    bowl_stats = pd.read_csv('DATA/processed data/bowl_stats_final.csv')
     return bat_stats, bowl_stats
 
 bat_stats, bowl_stats = load_data()
