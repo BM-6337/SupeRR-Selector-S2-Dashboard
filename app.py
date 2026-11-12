@@ -155,7 +155,9 @@ with tab2:
     fig.add_shape(type="line", x0=100, y0=100, x1=max_val, y1=max_val, line=dict(color="#8b949e", width=1, dash="dash"))
     
     st.plotly_chart(fig, use_container_width=True)
-    st.dataframe(bat_stats[['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'sr_std']].head(15).style.background_gradient(cmap='Blues'), use_container_width=True)
+    
+    # Removed the .style.background_gradient() that was causing the error
+    st.dataframe(bat_stats[['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'sr_std']].head(15).round(2), use_container_width=True)
 
 # --- TAB 3: BOWLING ---
 with tab3:
@@ -167,7 +169,9 @@ with tab3:
     fig.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', yaxis={'categoryorder':'total ascending'})
     
     st.plotly_chart(fig, use_container_width=True)
-    st.dataframe(bowl_stats[['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'econ_std']].head(15).style.background_gradient(cmap='Oranges'), use_container_width=True)
+    
+    # Removed the .style.background_gradient() that was causing the error
+    st.dataframe(bowl_stats[['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'econ_std']].head(15).round(2), use_container_width=True)
 
 # --- TAB 4: PLAYER PROFILES ---
 with tab4:
