@@ -26,6 +26,7 @@ def load_data():
 
 bat_stats, bowl_stats = load_data()
 
+# --- HEADER ---
 st.markdown('<div class="premium-title">SupeRR Selector<br>The Pressure Index</div>', unsafe_allow_html=True)
 st.markdown('<div class="premium-subtitle">IPL & T20I Cricket Analytics | 2022 onwards</div>', unsafe_allow_html=True)
 
