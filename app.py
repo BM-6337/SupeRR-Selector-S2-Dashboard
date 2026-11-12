@@ -9,13 +9,10 @@ st.set_page_config(page_title="SupeRR Selector 2 - The Moneyball Engine", layout
 # --- PREMIUM ANALYTICS CSS ---
 st.markdown('''
 <style>
-    /* Clean, premium dark mode */
     .stApp {
         background-color: #0d1117;
         color: #c9d1d9;
     }
-    
-    /* Elegant Title */
     .premium-title {
         font-family: 'Helvetica Neue', sans-serif;
         font-size: 3.2rem;
@@ -33,8 +30,6 @@ st.markdown('''
         margin-bottom: 40px;
         padding-left: 21px;
     }
-    
-    /* Clean Metric Cards */
     .metric-card {
         background: #161b22;
         border: 1px solid #30363d;
@@ -69,8 +64,6 @@ st.markdown('''
         margin-top: 8px;
         font-weight: 500;
     }
-    
-    /* Subheaders */
     .section-header {
         font-family: 'Helvetica Neue', sans-serif;
         color: #c9d1d9;
@@ -94,7 +87,7 @@ def load_data():
 bat_stats, bowl_stats = load_data()
 
 # --- HEADER ---
-st.markdown('<div class="premium-title">SupeRR Draft Optimizer</div>', unsafe_allow_html=True)
+st.markdown('<div class="premium-title">Asymmetric Value Engine</div>', unsafe_allow_html=True)
 st.markdown('<div class="premium-subtitle">SupeRR Selector Season 2 | Differential Match-Winner Identification</div>', unsafe_allow_html=True)
 
 # --- TABS ---
@@ -143,7 +136,6 @@ with tab1:
 with tab2:
     st.markdown('<div class="section-header">Batting Clutch Rankings</div>', unsafe_allow_html=True)
     
-    # Changed to Horizontal Bar Chart to match Bowling
     fig = px.bar(bat_stats.head(10), x='Pressure_Rating', y='striker_name', orientation='h',
                  color='Pressure_Rating', color_continuous_scale='Blues',
                  title="Top 10 High-Pressure Clutch Batters")
@@ -151,7 +143,7 @@ with tab2:
     
     st.plotly_chart(fig, use_container_width=True)
     
-    # Extended dataframe to 50
+    # Safe rendering without .style
     st.dataframe(bat_stats[['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'sr_std']].head(50).round(2), use_container_width=True)
 
 # --- TAB 3: BOWLING ---
@@ -165,7 +157,7 @@ with tab3:
     
     st.plotly_chart(fig, use_container_width=True)
     
-    # Extended dataframe to 50
+    # Safe rendering without .style
     st.dataframe(bowl_stats[['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'econ_std']].head(50).round(2), use_container_width=True)
 
 # --- TAB 4: PLAYER PROFILES ---
