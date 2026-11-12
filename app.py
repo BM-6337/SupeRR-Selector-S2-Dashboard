@@ -4,229 +4,131 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # --- PAGE SETUP ---
-st.set_page_config(page_title="SupeRR Selector 2 - The Moneyball Engine", layout="wide", page_icon="🏏")
+st.set_page_config(page_title="SupeRR Selector - The Pressure Index", layout="wide", page_icon="🏏")
 
-# --- PREMIUM ANALYTICS CSS ---
 st.markdown('''
 <style>
-    .stApp {
-        background-color: #0d1117;
-        color: #c9d1d9;
-    }
-    .premium-title {
-        font-family: 'Helvetica Neue', sans-serif;
-        font-size: 3.2rem;
-        font-weight: 300;
-        letter-spacing: -1px;
-        color: #f0f6fc;
-        border-left: 6px solid #2f81f7;
-        padding-left: 15px;
-        margin-bottom: 5px;
-    }
-    .premium-subtitle {
-        font-family: 'Helvetica Neue', sans-serif;
-        font-size: 1.2rem;
-        color: #8b949e;
-        margin-bottom: 40px;
-        padding-left: 21px;
-    }
-    .metric-card {
-        background: #161b22;
-        border: 1px solid #30363d;
-        padding: 24px;
-        border-radius: 8px;
-        text-align: left;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-    .metric-card:hover {
-        transform: translateY(-2px);
-        border-color: #2f81f7;
-    }
-    .metric-card h3 {
-        color: #8b949e;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        margin-bottom: 12px;
-        font-weight: 600;
-    }
-    .metric-card h1 {
-        color: #f0f6fc;
-        font-size: 2.4rem;
-        font-weight: 700;
-        margin: 0;
-        line-height: 1.2;
-    }
-    .metric-card p {
-        color: #2ea043;
-        font-size: 1rem;
-        margin-top: 8px;
-        font-weight: 500;
-    }
-    .section-header {
-        font-family: 'Helvetica Neue', sans-serif;
-        color: #c9d1d9;
-        font-size: 1.5rem;
-        font-weight: 500;
-        margin-top: 40px;
-        margin-bottom: 20px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #30363d;
-    }
+    .stApp { background-color: #0d1117; color: #c9d1d9; }
+    .premium-title { font-family: 'Helvetica Neue', sans-serif; font-size: 3rem; font-weight: 300; letter-spacing: -1px; color: #f0f6fc; border-left: 6px solid #2f81f7; padding-left: 15px; margin-bottom: 5px; text-transform: uppercase; }
+    .premium-subtitle { font-family: 'Helvetica Neue', sans-serif; font-size: 1.2rem; color: #8b949e; margin-bottom: 40px; padding-left: 21px; text-transform: uppercase; letter-spacing: 2px;}
+    .metric-card { background: #161b22; border: 1px solid #30363d; padding: 24px; border-radius: 8px; text-align: left; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    .metric-card h3 { color: #8b949e; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; font-weight: 600; }
+    .metric-card h1 { color: #f0f6fc; font-size: 2.2rem; font-weight: 700; margin: 0; line-height: 1.2; }
+    .metric-card p { color: #2ea043; font-size: 1rem; margin-top: 8px; font-weight: 500; }
 </style>
 ''', unsafe_allow_html=True)
 
-# --- DATA LOADING ---
 @st.cache_data
 def load_data():
-    bat_stats = pd.read_csv('bat_stats_2.csv')
-    bowl_stats = pd.read_csv('bowl_stats_2.csv')
-    return bat_stats.head(50), bowl_stats.head(50)
+    bat_stats = pd.read_csv('DATA/processed datasets/bat_stats_final.csv')
+    bowl_stats = pd.read_csv('DATA/processed datasets/bowl_stats_final.csv')
+    return bat_stats, bowl_stats
 
 bat_stats, bowl_stats = load_data()
 
-# --- HEADER ---
-st.markdown('<div class="premium-title">Asymmetric Value Engine</div>', unsafe_allow_html=True)
-st.markdown('<div class="premium-subtitle">SupeRR Selector Season 2 | Differential Match-Winner Identification</div>', unsafe_allow_html=True)
+st.markdown('<div class="premium-title">SUPERR SELECTOR<br>THE PRESSURE INDEX</div>', unsafe_allow_html=True)
+st.markdown('<div class="premium-subtitle">IPL & T20I Cricket Analytics | 2022 onwards</div>', unsafe_allow_html=True)
 
-# --- TABS ---
-tab1, tab2, tab3, tab4 = st.tabs(["Overview", "Batting Differentials", "Bowling Differentials", "Player Profiles"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs([
+    "Executive Overview", "Batting Leaderboard", "Bowling Leaderboard", 
+    "Player Profiles", "Player Comparison", "Pressure Situation Analysis", "Methodology"
+])
 
-# --- TAB 1: OVERVIEW ---
 with tab1:
-    st.markdown('<div class="section-header">Executive Summary</div>', unsafe_allow_html=True)
-    
-    col1, col2, col3 = st.columns(3)
-    
-    top_bat = bat_stats.iloc[0]
-    top_bowl = bowl_stats.iloc[0]
-    
+    st.markdown('### Project Diagnostics')
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>Highest Value Batter</h3>
-            <h1>{top_bat['striker_name']}</h1>
-            <p>+{top_bat['Pressure_Rating']:.2f} Differential Rating</p>
-        </div>
-        ''', unsafe_allow_html=True)
-        
+        st.markdown(f'<div class="metric-card"><h3>Unique Batters</h3><h1>{len(bat_stats)}</h1><p>Validated</p></div>', unsafe_allow_html=True)
     with col2:
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>Highest Value Bowler</h3>
-            <h1>{top_bowl['bowler_name']}</h1>
-            <p>+{top_bowl['Pressure_Rating']:.2f} Differential Rating</p>
-        </div>
-        ''', unsafe_allow_html=True)
-        
+        st.markdown(f'<div class="metric-card"><h3>Unique Bowlers</h3><h1>{len(bowl_stats)}</h1><p>Validated</p></div>', unsafe_allow_html=True)
     with col3:
-        st.markdown(f'''
-        <div class="metric-card">
-            <h3>Data Pipeline</h3>
-            <h1>400+</h1>
-            <p style="color:#8b949e;">Players Processed & Verified</p>
-        </div>
-        ''', unsafe_allow_html=True)
-        
-    st.markdown('<div class="section-header">Methodology Overview</div>', unsafe_allow_html=True)
-    st.info("This model ignores standard volume metrics. Instead, it measures 'Clutch Differential'—identifying players whose statistical output drastically improves during extreme match situations (Overs 19-20, RRR > 12, or top-order collapses), while mathematically penalizing match-to-match volatility.")
+        st.markdown(f'<div class="metric-card"><h3>Top Batter</h3><h1>{bat_stats.iloc[0]["striker_name"]}</h1><p>Rating: {bat_stats.iloc[0]["Pressure_Rating"]:.2f}</p></div>', unsafe_allow_html=True)
+    with col4:
+        st.markdown(f'<div class="metric-card"><h3>Top Bowler</h3><h1>{bowl_stats.iloc[0]["bowler_name"]}</h1><p>Rating: {bowl_stats.iloc[0]["Pressure_Rating"]:.2f}</p></div>', unsafe_allow_html=True)
 
-# --- TAB 2: BATTING ---
 with tab2:
-    st.markdown('<div class="section-header">Batting Clutch Rankings</div>', unsafe_allow_html=True)
-    
-    fig = px.bar(bat_stats.head(10), x='Pressure_Rating', y='striker_name', orientation='h',
-                 color='Pressure_Rating', color_continuous_scale='Blues',
-                 title="Top 10 High-Pressure Clutch Batters")
-    fig.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', yaxis={'categoryorder':'total ascending'})
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Safe rendering without .style
-    st.dataframe(bat_stats[['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'sr_std']].head(50).round(2), use_container_width=True)
+    st.markdown('### Top 10 Batters (Differential & Clutch Output)')
+    display_cols = ['striker_name', 'Pressure_Rating', 'sr_base', 'sr_pres', 'avg_base', 'avg_pres', 'balls_pres', 'outs_pres', 'sr_std']
+    st.dataframe(bat_stats[display_cols].head(10).round(2), use_container_width=True)
 
-# --- TAB 3: BOWLING ---
 with tab3:
-    st.markdown('<div class="section-header">Bowling Clutch Rankings</div>', unsafe_allow_html=True)
-    
-    fig = px.bar(bowl_stats.head(10), x='Pressure_Rating', y='bowler_name', orientation='h',
-                 color='Pressure_Rating', color_continuous_scale='Oranges',
-                 title="Top 10 High-Pressure Lockdown Bowlers")
-    fig.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)', yaxis={'categoryorder':'total ascending'})
-    
-    st.plotly_chart(fig, use_container_width=True)
-    
-    # Safe rendering without .style
-    st.dataframe(bowl_stats[['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'econ_std']].head(50).round(2), use_container_width=True)
+    st.markdown('### Top 10 Bowlers (Lockdown Efficiency)')
+    display_cols = ['bowler_name', 'Pressure_Rating', 'econ_base', 'econ_pres', 'wickets_pres', 'balls_bowled_pres', 'sr_pres', 'econ_std', 'matches_played']
+    st.dataframe(bowl_stats[display_cols].head(10).round(2), use_container_width=True)
 
-# --- TAB 4: PLAYER PROFILES ---
 with tab4:
-    st.markdown('<div class="section-header">Individual Player Scans</div>', unsafe_allow_html=True)
+    st.markdown('### Individual Player Intelligence')
+    ptype = st.radio("Role:", ["Batting", "Bowling"], horizontal=True)
     
-    player_type = st.radio("Select Role:", ["Batters", "Bowlers"], horizontal=True)
-    
-    if player_type == "Batters":
-        player = st.selectbox("Select Batter", bat_stats['striker_name'].tolist())
+    if ptype == "Batting":
+        player = st.selectbox("Search Batter", bat_stats['striker_name'].tolist())
         p_data = bat_stats[bat_stats['striker_name'] == player].iloc[0]
-        
-        col1, col2 = st.columns([1, 2])
+        col1, col2 = st.columns([1,2])
         with col1:
-            st.markdown(f'''
-            <div class="metric-card" style="border-left: 4px solid #2f81f7;">
-                <h3>{player}</h3>
-                <h1 style="font-size:2rem; color:#f0f6fc;">Global Rank: #{bat_stats.index[bat_stats['striker_name'] == player][0] + 1}</h1>
-                <p style="color:#2f81f7;">Clutch Rating: {p_data['Pressure_Rating']:.2f}</p>
-            </div>
-            ''', unsafe_allow_html=True)
-            
+            st.metric("Pressure Rating", f"{p_data['Pressure_Rating']:.2f}")
+            st.metric("Balls Faced (Pressure)", int(p_data['balls_pres']))
+            st.metric("Dismissals (Pressure)", int(p_data['outs_pres']))
+            st.metric("Consistency (Std Dev)", f"{p_data['sr_std']:.2f}")
         with col2:
-            fig = go.Figure(data=go.Scatterpolar(
-              r=[p_data['sr_base'], p_data['sr_pres'], p_data['avg_base'], p_data['avg_pres']],
-              theta=['Base SR', 'Pressure SR', 'Base Avg', 'Pressure Avg'],
-              fill='toself',
-              line_color='#2f81f7',
-              fillcolor='rgba(47, 129, 247, 0.2)'
-            ))
-            fig.update_layout(
-              polar=dict(radialaxis=dict(visible=True, range=[0, max(p_data['sr_pres'], 200)], gridcolor='#30363d')),
-              showlegend=False, template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)',
-              title=f"{player}: Base vs Extreme Pressure Output"
-            )
+            fig = go.Figure(data=[
+                go.Bar(name='Baseline', x=['Strike Rate', 'Average'], y=[p_data['sr_base'], p_data['avg_base']], marker_color='#30363d'),
+                go.Bar(name='Pressure', x=['Strike Rate', 'Average'], y=[p_data['sr_pres'], p_data['avg_pres']], marker_color='#2f81f7')
+            ])
+            fig.update_layout(barmode='group', template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
             st.plotly_chart(fig, use_container_width=True)
-            
     else:
-        player = st.selectbox("Select Bowler", bowl_stats['bowler_name'].tolist())
+        player = st.selectbox("Search Bowler", bowl_stats['bowler_name'].tolist())
         p_data = bowl_stats[bowl_stats['bowler_name'] == player].iloc[0]
-        
-        col1, col2 = st.columns([1, 2])
+        col1, col2 = st.columns([1,2])
         with col1:
-            st.markdown(f'''
-            <div class="metric-card" style="border-left: 4px solid #d29922;">
-                <h3>{player}</h3>
-                <h1 style="font-size:2rem; color:#f0f6fc;">Global Rank: #{bowl_stats.index[bowl_stats['bowler_name'] == player][0] + 1}</h1>
-                <p style="color:#d29922;">Clutch Rating: {p_data['Pressure_Rating']:.2f}</p>
-            </div>
-            ''', unsafe_allow_html=True)
-            
+            st.metric("Pressure Rating", f"{p_data['Pressure_Rating']:.2f}")
+            st.metric("Balls Bowled (Pressure)", int(p_data['balls_bowled_pres']))
+            st.metric("Wickets (Pressure)", int(p_data['wickets_pres']))
+            st.metric("Consistency (Econ Std Dev)", f"{p_data['econ_std']:.2f}")
         with col2:
-            fig = go.Figure(go.Indicator(
-                mode = "gauge+number+delta",
-                value = p_data['econ_pres'],
-                domain = {'x': [0, 1], 'y': [0, 1]},
-                title = {'text': "Pressure Economy (Lower is Better)", 'font': {'color': '#8b949e'}},
-                delta = {'reference': p_data['econ_base'], 'increasing': {'color': "#f85149"}, 'decreasing':{'color':"#2ea043"}},
-                gauge = {
-                    'axis': {'range': [None, 15], 'tickcolor': "#8b949e"},
-                    'bar': {'color': "#d29922"},
-                    'bgcolor': "#161b22",
-                    'borderwidth': 1,
-                    'bordercolor': "#30363d",
-                    'steps' : [
-                        {'range': [0, 7], 'color': "rgba(46,160,67,0.1)"},
-                        {'range': [7, 10], 'color': "rgba(210,153,34,0.1)"},
-                        {'range': [10, 15], 'color': "rgba(248,81,73,0.1)"}],
-                }
-            ))
-            fig.update_layout(template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
+            fig = go.Figure(data=[
+                go.Bar(name='Baseline', x=['Economy', 'Strike Rate'], y=[p_data['econ_base'], p_data['sr_base']], marker_color='#30363d'),
+                go.Bar(name='Pressure', x=['Economy', 'Strike Rate'], y=[p_data['econ_pres'], p_data['sr_pres']], marker_color='#d29922')
+            ])
+            fig.update_layout(barmode='group', template='plotly_dark', plot_bgcolor='rgba(0,0,0,0)', paper_bgcolor='rgba(0,0,0,0)')
             st.plotly_chart(fig, use_container_width=True)
+
+with tab5:
+    st.markdown('### Head-to-Head Comparison')
+    ctype = st.radio("Compare:", ["Batters", "Bowlers"], horizontal=True)
+    if ctype == "Batters":
+        players = st.multiselect("Select Batters", bat_stats['striker_name'].tolist(), default=bat_stats['striker_name'].head(2).tolist())
+        if players:
+            df_comp = bat_stats[bat_stats['striker_name'].isin(players)]
+            fig = px.bar(df_comp, x='striker_name', y='Pressure_Rating', color='striker_name', template='plotly_dark')
+            st.plotly_chart(fig, use_container_width=True)
+    else:
+        players = st.multiselect("Select Bowlers", bowl_stats['bowler_name'].tolist(), default=bowl_stats['bowler_name'].head(2).tolist())
+        if players:
+            df_comp = bowl_stats[bowl_stats['bowler_name'].isin(players)]
+            fig = px.bar(df_comp, x='bowler_name', y='Pressure_Rating', color='bowler_name', template='plotly_dark')
+            st.plotly_chart(fig, use_container_width=True)
+
+with tab6:
+    st.markdown('### Pressure Situation Analysis (Macro Trends)')
+    # Show distribution of Z-Scores to avoid fabricating delivery-level charts without raw data loaded here
+    fig1 = px.histogram(bat_stats, x='Pressure_Rating', title='Batting Pressure Rating Distribution', template='plotly_dark', color_discrete_sequence=['#2f81f7'])
+    fig2 = px.histogram(bowl_stats, x='Pressure_Rating', title='Bowling Pressure Rating Distribution', template='plotly_dark', color_discrete_sequence=['#d29922'])
+    col1, col2 = st.columns(2)
+    col1.plotly_chart(fig1, use_container_width=True)
+    col2.plotly_chart(fig2, use_container_width=True)
+
+with tab7:
+    st.markdown('''
+    ### Analytical Methodology
+    **Pressure Definitions:**
+    * Chases requiring over 12.0 Runs Per Over.
+    * Death Overs (Overs 19 & 20).
+    * Top-Order Collapse (4+ Wickets lost within Powerplay).
+    
+    **Calculations:**
+    * **Batting Model:** `Z(Pressure_Avg) + 1.5 * Z(Pressure_SR - Base_SR) + 0.5 * Z(Consistency)`
+    * **Bowling Model:** `- [1.5 * Z(Pressure_Econ - Base_Econ) + Z(Pressure_SR)] + 0.5 * Z(Consistency)`
+    * **Consistency:** Defined as the inverted standard deviation of match-by-match performance.
+    * **Threshold Limits:** Filtered strictly to >100 balls (Batting) and >60 balls (Bowling) to resolve small-sample anomalies (e.g., S. Atal).
+    ''')
