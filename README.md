@@ -21,6 +21,4 @@ This dashboard presents a data-driven "Differential" draft strategy for SupeRR S
 ## Files in this Directory
 - `app.py`: The main Streamlit dashboard application.
 - `requirements.txt`: Python package dependencies.
-- `bat_stats_2.csv`: Processed batting statistics used by the dashboard.
-- `bowl_stats_2.csv`: Processed bowling statistics used by the dashboard.
 - `README.md`: This file.
